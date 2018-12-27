@@ -12,6 +12,7 @@ define( require => {
 
   const saveTheTown = require( 'SAVE_THE_TOWN/saveTheTown' );
   const ScreenView = require( 'JOIST/ScreenView' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   class SaveTheTownScreenView extends ScreenView {
 
@@ -22,7 +23,11 @@ define( require => {
      */
     constructor( model, alignGroup, options ) {
       super();
-
+      var size = 618 / 10;
+      for ( var i = 0; i < 10; i++ ) {
+        var rectangle = new Rectangle( size * i, size * i, size, size, { fill: 'blue' } );
+        this.addChild( rectangle );
+      }
     }
 
     /**
