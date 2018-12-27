@@ -1,0 +1,26 @@
+{
+  "name": "save-the-town",
+  "version": "1.0.0-dev.43",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erikjreid/save-the-town.git"
+  },
+  "devDependencies": {
+    "grunt": "~1.0.0"
+  },
+  "phet": {
+    "requirejsNamespace": "SAVE_THE_TOWN",
+    "phetLibs": [
+      "twixt",
+      "griddle",
+      "tambo"
+    ],
+    "runnable": true,
+    "supportedBrands": [
+      "phet",
+      "adapted-from-phet"
+    ],
+    "simulation": true
+  }
+}

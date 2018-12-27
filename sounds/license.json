@@ -1,0 +1,66 @@
+{
+  "ding.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  },
+  "missile-explode.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  },
+  "missile-launch.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  },
+  "no.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  },
+  "tank-explode.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  },
+  "wall-collapse.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  },
+  "zombie-hits-wall.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  },
+  "zombiedeath.mp3": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": "created by Erik Reid"
+  }
+}

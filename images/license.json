@@ -1,0 +1,42 @@
+{
+  "armedSoldier.png": {
+    "text": [
+      "Copyright Erik Reid"
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": ""
+  },
+  "missile.png": {
+    "text": [
+      "Copyright Erik Reid"
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": ""
+  },
+  "tank.png": {
+    "text": [
+      "Copyright Erik Reid"
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": ""
+  },
+  "wall.png": {
+    "text": [
+      "Copyright Erik Reid"
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": ""
+  },
+  "zombie.png": {
+    "text": [
+      "Copyright Erik Reid"
+    ],
+    "projectURL": "http://localhost",
+    "license": "Public Domain",
+    "notes": ""
+  }
+}
