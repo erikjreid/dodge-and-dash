@@ -24,9 +24,22 @@ define( require => {
     constructor( model, alignGroup, options ) {
       super();
       var size = 618 / 10;
-      for ( var i = 0; i < 10; i++ ) {
-        var rectangle = new Rectangle( size * i, size * i, size, size, { fill: 'blue' } );
-        this.addChild( rectangle );
+      for ( var i = 0; i < 16; i++ ) {
+        //for every i add a j
+        for ( var j = 0; j < 10; j++ ) {
+          var isIOdd = i % 2 === 1;
+          var isRowEven = j % 2 === 0;
+          var fill = '';
+          if ( isRowEven ) {
+            fill = isIOdd ? 'black' : 'blue';
+          }
+          else {
+            fill = isIOdd ? 'blue' : 'black';
+          }
+          var rectangle = new Rectangle( size * i, size * j, size, size, { fill: fill } );
+          this.addChild( rectangle );
+        }
+
       }
     }
 
