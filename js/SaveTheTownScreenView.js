@@ -10,13 +10,16 @@
 define( require => {
   'use strict';
 
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const saveTheTown = require( 'DODGE_AND_DASH/saveTheTown' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Image = require( 'SCENERY/nodes/Image' );
 
   // images
+  const bladeImage = require( 'image!DODGE_AND_DASH/blade.png' );
   const gunImage = require( 'image!DODGE_AND_DASH/gun.png' );
+  const manImage = require( 'image!DODGE_AND_DASH/man.png' );
 
   class SaveTheTownScreenView extends ScreenView {
 
@@ -27,7 +30,7 @@ define( require => {
      */
     constructor( model, alignGroup, options ) {
       super();
-      var size = 618 / 10;
+      var squareLength = 618 / 10;
       for ( var i = 0; i < 16; i++ ) {
         for ( var j = 0; j < 10; j++ ) {
           var isIOdd = i % 2 === 1;
@@ -39,20 +42,36 @@ define( require => {
           else {
             fill = isIOdd ? 'blue' : 'black';
           }
-          var rectangle = new Rectangle( size * i, size * j, size, size, { fill: fill } );
+          var rectangle = new Rectangle( squareLength * i, squareLength * j, squareLength, squareLength, { fill: fill } );
           this.addChild( rectangle );
         }
       }
 
       for ( var i = 0; i < 5; i = i + 1 ) {
         const gun = new Image( gunImage, {
-          y: size * 2 * i,
+          y: squareLength * 2 * i,
           scale: 0.50
         } );
         this.addChild( gun );
       }
 
+      const man = new Image( manImage, {
+        centerY: squareLength * 6 + 27,
+        x: 500 + squareLength * 3,
+        scale: 0.75
+      } );
+      this.addChild( man );
 
+      const blade = new Image( bladeImage, {
+        rightCenter: man.leftCenter
+      } );
+      this.addChild( blade );
+
+      this.addInputListener( new DragListener( {
+        drag: event => {
+          console.log( event.pointer.point );
+        }
+      } ) );
     }
 
     /**
