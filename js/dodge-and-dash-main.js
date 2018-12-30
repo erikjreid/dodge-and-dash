@@ -12,10 +12,10 @@ define( require => {
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const Sim = require( 'JOIST/Sim' );
   const SimLauncher = require( 'JOIST/SimLauncher' );
-  const SaveTheTownScreen = require( 'SAVE_THE_TOWN/SaveTheTownScreen' );
+  const SaveTheTownScreen = require( 'DODGE_AND_DASH/SaveTheTownScreen' );
 
   // strings
-  const saveTheTownTitleString = require( 'string!SAVE_THE_TOWN/save-the-town.title' );
+  const dodgeAndDashTitle = require( 'string!DODGE_AND_DASH/dodge-and-dash.title' );
 
   const simOptions = {
     credits: {
@@ -38,7 +38,7 @@ define( require => {
       // Elements should have the same widths but not constrained to have the same heights
       matchVertical: false
     } );
-    const sim = new Sim( saveTheTownTitleString, [
+    const sim = new Sim( dodgeAndDashTitle, [
       new SaveTheTownScreen( alignGroup )
     ], simOptions );
     sim.start();

@@ -11,8 +11,8 @@ define( require => {
   // modules
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
-  const saveTheTown = require( 'SAVE_THE_TOWN/saveTheTown' );
-  const SaveTheTownScreenView = require( 'SAVE_THE_TOWN/SaveTheTownScreenView' );
+  const saveTheTown = require( 'DODGE_AND_DASH/saveTheTown' );
+  const SaveTheTownScreenView = require( 'DODGE_AND_DASH/SaveTheTownScreenView' );
 
   class SaveTheTownScreen extends Screen {
 

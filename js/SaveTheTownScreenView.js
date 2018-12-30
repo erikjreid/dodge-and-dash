@@ -10,9 +10,13 @@
 define( require => {
   'use strict';
 
-  const saveTheTown = require( 'SAVE_THE_TOWN/saveTheTown' );
+  const saveTheTown = require( 'DODGE_AND_DASH/saveTheTown' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Image = require( 'SCENERY/nodes/Image' );
+
+  // images
+  const gunImage = require( 'image!DODGE_AND_DASH/gun.png' );
 
   class SaveTheTownScreenView extends ScreenView {
 
@@ -25,7 +29,6 @@ define( require => {
       super();
       var size = 618 / 10;
       for ( var i = 0; i < 16; i++ ) {
-        //for every i add a j
         for ( var j = 0; j < 10; j++ ) {
           var isIOdd = i % 2 === 1;
           var isRowEven = j % 2 === 0;
@@ -39,8 +42,17 @@ define( require => {
           var rectangle = new Rectangle( size * i, size * j, size, size, { fill: fill } );
           this.addChild( rectangle );
         }
-
       }
+
+      for ( var i = 0; i < 5; i = i + 1 ) {
+        const gun = new Image( gunImage, {
+          y: size * 2 * i,
+          scale: 0.50
+        } );
+        this.addChild( gun );
+      }
+
+
     }
 
     /**

@@ -1,16 +1,16 @@
 {
-  "name": "save-the-town",
+  "name": "dodge-and-dash",
   "version": "1.0.0-dev.43",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erikjreid/save-the-town.git"
+    "url": "https://github.com/erikjreid/dodge-and-dash.git"
   },
   "devDependencies": {
     "grunt": "~1.0.0"
   },
   "phet": {
-    "requirejsNamespace": "SAVE_THE_TOWN",
+    "requirejsNamespace": "DODGE_AND_DASH",
     "phetLibs": [
       "twixt",
       "griddle",
