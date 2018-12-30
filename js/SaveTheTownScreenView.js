@@ -67,9 +67,35 @@ define( require => {
       } );
       this.addChild( blade );
 
+      let start = null;
+      let end = null;
       this.addInputListener( new DragListener( {
+        start: event => {
+          start = event.pointer.point;
+          end = null;
+        },
         drag: event => {
-          console.log( event.pointer.point );
+          // console.log( event.pointer.point );
+          end = event.pointer.point;
+        },
+        end: event => {
+
+          if ( end ) {
+            // console.log( 'started at ' + start + ', and ended at ' + end );
+            const startX = Math.round( start.x );
+            const startY = Math.round( start.y );
+            const endX = Math.round( end.x );
+            const endY = Math.round( end.y );
+            // console.log( startX, startY, ' => ', endX, endY );
+
+            const dog = endX - startX;
+            console.log( dog );
+
+            const cat = endY - startY;
+            if ( Math.abs( dog ) > 100 && Math.abs( cat ) > 100 ) {
+              console.log( 'slash' );
+            }
+          }
         }
       } ) );
     }
