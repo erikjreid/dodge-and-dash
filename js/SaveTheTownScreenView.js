@@ -66,6 +66,7 @@ define( require => {
         rightCenter: man.leftCenter
       } );
       this.addChild( blade );
+      blade.visible = false;
 
       let start = null;
       let end = null;
@@ -94,6 +95,11 @@ define( require => {
             const cat = endY - startY;
             if ( Math.abs( dog ) > 100 && Math.abs( cat ) > 100 ) {
               console.log( 'slash' );
+              blade.visible = true;
+
+              setTimeout( () => {
+                blade.visible = false
+              }, 400 );
             }
           }
         }
