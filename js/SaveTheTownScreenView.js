@@ -87,19 +87,42 @@ define( require => {
             const startY = Math.round( start.y );
             const endX = Math.round( end.x );
             const endY = Math.round( end.y );
-            // console.log( startX, startY, ' => ', endX, endY );
 
-            const dog = endX - startX;
-            console.log( dog );
+            const horizontal = endX - startX;
+            const vertical = endY - startY;
 
-            const cat = endY - startY;
-            if ( Math.abs( dog ) > 100 && Math.abs( cat ) > 100 ) {
-              console.log( 'slash' );
+            if ( Math.abs( horizontal ) > 100 && Math.abs( vertical ) > 100 ) {
+              blade.rightCenter = man.leftCenter;
               blade.visible = true;
 
               setTimeout( () => {
                 blade.visible = false
               }, 400 );
+            }
+            console.log( horizontal, vertical );
+
+            // Steps Left
+            if ( horizontal < -100 && Math.abs( vertical ) < 50 ) {
+              console.log( 'swipe' );
+              man.x = man.x - squareLength;
+            }
+
+            // For Erik: Steps Right
+            if ( horizontal > 100 && Math.abs( vertical ) < 50 ) {
+              console.log( 'swipe' );
+              man.x = man.x + squareLength;
+            }
+
+            // For Erik: Steps up
+            if ( Math.abs( horizontal ) < 50 && vertical < -100 ) {
+              console.log( 'swipe' );
+              man.y = man.y - squareLength;
+            }
+
+            // For Erik: Steps down
+            if ( Math.abs( horizontal ) < 50 && vertical > 100 ) {
+              console.log( 'swipe' );
+              man.y = man.y + squareLength;
             }
           }
         }
