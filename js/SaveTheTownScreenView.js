@@ -47,12 +47,15 @@ define( require => {
         }
       }
 
+      const guns = [];
+
       for ( var i = 0; i < 5; i = i + 1 ) {
         const gun = new Image( gunImage, {
           y: squareLength * 2 * i,
           scale: 0.50
         } );
         this.addChild( gun );
+        guns.push( gun );
       }
 
       const man = new Image( manImage, {
@@ -94,6 +97,12 @@ define( require => {
             if ( Math.abs( horizontal ) > 100 && Math.abs( vertical ) > 100 ) {
               blade.rightCenter = man.leftCenter;
               blade.visible = true;
+
+              guns.forEach( gun => {
+                if ( blade.bounds.intersectsBounds( gun.bounds ) ) {
+                  gun.visible = false;
+                }
+              } );
 
               setTimeout( () => {
                 blade.visible = false
