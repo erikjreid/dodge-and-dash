@@ -10,6 +10,7 @@
 define( require => {
   'use strict';
 
+  const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Image = require( 'SCENERY/nodes/Image' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -49,10 +50,10 @@ define( require => {
 
       const guns = [];
 
-      for ( var i = 0; i < 5; i = i + 1 ) {
+      for ( var i = 0; i < 10; i++ ) {
         const gun = new Image( gunImage, {
-          y: squareLength * 2 * i,
-          scale: 0.50
+          y: squareLength * i,
+          scale: 0.3
         } );
         this.addChild( gun );
         guns.push( gun );
@@ -136,6 +137,23 @@ define( require => {
           }
         }
       } ) );
+
+      const bullets = [];
+
+      this.step = dt => {
+        guns.forEach( gun => {
+
+          if ( Math.random() > 0.99 ) {
+            const bullet = new Circle( 10, { fill: 'yellow', center: gun.center.plusXY( 50, 0 ) } );
+            bullets.push( bullet );
+            this.addChild( bullet );
+          }
+        } );
+
+        bullets.forEach( bullet => {
+          bullet.x = bullet.x + 1;
+        } );
+      };
     }
 
     /**
@@ -144,6 +162,7 @@ define( require => {
      * @public
      */
     step( dt ) {
+      this.step( dt );
     }
   }
 
