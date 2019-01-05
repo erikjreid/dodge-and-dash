@@ -140,6 +140,7 @@ define( require => {
 
       const bullets = [];
 
+      // This code runs all the time
       this.step = dt => {
         guns.forEach( gun => {
 
@@ -152,6 +153,9 @@ define( require => {
 
         bullets.forEach( bullet => {
           bullet.x = bullet.x + 1;
+          if ( blade.visible && blade.bounds.intersectsBounds( bullet.bounds ) ) {
+            bullet.visible = false;
+          }
         } );
       };
     }
