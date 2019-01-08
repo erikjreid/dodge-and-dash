@@ -14,6 +14,7 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Image = require( 'SCENERY/nodes/Image' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Plane = require( 'SCENERY/nodes/Plane' );
   const saveTheTown = require( 'DODGE_AND_DASH/saveTheTown' );
   const ScreenView = require( 'JOIST/ScreenView' );
 
@@ -64,6 +65,7 @@ define( require => {
         x: 500 + squareLength * 3,
         scale: 0.75
       } );
+      man.lifePoints = 5;
       this.addChild( man );
 
       const blade = new Image( bladeImage, {
@@ -155,6 +157,16 @@ define( require => {
           bullet.x = bullet.x + 1;
           if ( blade.visible && blade.bounds.intersectsBounds( bullet.bounds ) ) {
             bullet.visible = false;
+          }
+          if ( bullet.bounds.intersectsBounds( man.bounds ) ) {
+            bullet.visible = false;
+            man.lifePoints = man.lifePoints - 1;
+            if ( man.lifePoints <= 0 ) {
+              const redScreen = new Plane( {
+                fill: 'red'
+              } );
+              this.addChild( redScreen );
+            }
           }
         } );
       };
