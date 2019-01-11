@@ -13,8 +13,9 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Image = require( 'SCENERY/nodes/Image' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Plane = require( 'SCENERY/nodes/Plane' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const saveTheTown = require( 'DODGE_AND_DASH/saveTheTown' );
   const ScreenView = require( 'JOIST/ScreenView' );
 
@@ -148,8 +149,10 @@ define( require => {
 
           if ( Math.random() > 0.99 ) {
             const bullet = new Circle( 10, { fill: 'yellow', center: gun.center.plusXY( 50, 0 ) } );
-            bullets.push( bullet );
-            this.addChild( bullet );
+            if ( man.lifePoints > 0 ) {
+              bullets.push( bullet );
+              this.addChild( bullet );
+            }
           }
         } );
 
@@ -160,12 +163,25 @@ define( require => {
           }
           if ( bullet.visible && bullet.bounds.intersectsBounds( man.bounds ) ) {
             bullet.visible = false;
-            man.lifePoints = man.lifePoints - 1;
-            if ( man.lifePoints <= 0 ) {
-              const redScreen = new Plane( {
-                fill: 'red'
-              } );
-              this.addChild( redScreen );
+            if ( man.lifePoints > 0 ) {
+              man.lifePoints = man.lifePoints - 1;
+              if ( man.lifePoints <= 0 ) {
+                const redScreen = new Plane( {
+                  fill: 'red'
+                } );
+                this.addChild( redScreen );
+                const resetAllButton = new ResetAllButton( {
+                  radius: 50,
+                  center: this.layoutBounds.center,
+                  listener: () => {
+                    man.lifePoints = 5;
+                    this.removeChild( redScreen );
+                    bullets.forEach( bullet => bullet.setVisible( false ) );
+                    this.removeChild( resetAllButton );
+                  }
+                } );
+                this.addChild( resetAllButton );
+              }
             }
           }
         } );
