@@ -158,7 +158,7 @@ define( require => {
           if ( blade.visible && blade.bounds.intersectsBounds( bullet.bounds ) ) {
             bullet.visible = false;
           }
-          if ( bullet.bounds.intersectsBounds( man.bounds ) ) {
+          if ( bullet.visible && bullet.bounds.intersectsBounds( man.bounds ) ) {
             bullet.visible = false;
             man.lifePoints = man.lifePoints - 1;
             if ( man.lifePoints <= 0 ) {
