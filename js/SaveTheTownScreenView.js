@@ -18,6 +18,7 @@ define( require => {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const saveTheTown = require( 'DODGE_AND_DASH/saveTheTown' );
   const ScreenView = require( 'JOIST/ScreenView' );
+  const Game = require( 'DODGE_AND_DASH/Game' );
 
   // images
   const bladeImage = require( 'image!DODGE_AND_DASH/blade.png' );
@@ -33,160 +34,17 @@ define( require => {
      */
     constructor( model, alignGroup, options ) {
       super();
-      var squareLength = 618 / 10;
-      for ( var i = 0; i < 16; i++ ) {
-        for ( var j = 0; j < 10; j++ ) {
-          var isIOdd = i % 2 === 1;
-          var isRowEven = j % 2 === 0;
-          var fill = '';
-          if ( isRowEven ) {
-            fill = isIOdd ? 'black' : 'blue';
-          }
-          else {
-            fill = isIOdd ? 'blue' : 'black';
-          }
-          var rectangle = new Rectangle( squareLength * i, squareLength * j, squareLength, squareLength, { fill: fill } );
-          this.addChild( rectangle );
-        }
-      }
 
-      const guns = [];
-
-      for ( var i = 0; i < 10; i++ ) {
-        const gun = new Image( gunImage, {
-          y: squareLength * i,
-          scale: 0.3
-        } );
-        this.addChild( gun );
-        guns.push( gun );
-      }
-
-      const man = new Image( manImage, {
-        centerY: squareLength * 6 + 27,
-        x: 500 + squareLength * 3,
-        scale: 0.75
-      } );
-      man.lifePoints = 5;
-      this.addChild( man );
-
-      const blade = new Image( bladeImage, {
-        rightCenter: man.leftCenter
-      } );
-      this.addChild( blade );
-      blade.visible = false;
-
-      let start = null;
-      let end = null;
-      this.addInputListener( new DragListener( {
-        start: event => {
-          start = event.pointer.point;
-          end = null;
-        },
-        drag: event => {
-          // console.log( event.pointer.point );
-          end = event.pointer.point;
-        },
-        end: event => {
-
-          if ( end ) {
-            // console.log( 'started at ' + start + ', and ended at ' + end );
-            const startX = Math.round( start.x );
-            const startY = Math.round( start.y );
-            const endX = Math.round( end.x );
-            const endY = Math.round( end.y );
-
-            const horizontal = endX - startX;
-            const vertical = endY - startY;
-
-            if ( Math.abs( horizontal ) > 100 && Math.abs( vertical ) > 100 ) {
-              blade.rightCenter = man.leftCenter;
-              blade.visible = true;
-
-              guns.forEach( gun => {
-                if ( blade.bounds.intersectsBounds( gun.bounds ) ) {
-                  gun.visible = false;
-                }
-              } );
-
-              setTimeout( () => {
-                blade.visible = false
-              }, 400 );
-            }
-            console.log( horizontal, vertical );
-
-            // Steps Left
-            if ( horizontal < -100 && Math.abs( vertical ) < 50 ) {
-              console.log( 'swipe' );
-              man.x = man.x - squareLength;
-            }
-
-            // For Erik: Steps Right
-            if ( horizontal > 100 && Math.abs( vertical ) < 50 ) {
-              console.log( 'swipe' );
-              man.x = man.x + squareLength;
-            }
-
-            // For Erik: Steps up
-            if ( Math.abs( horizontal ) < 50 && vertical < -100 ) {
-              console.log( 'swipe' );
-              man.y = man.y - squareLength;
-            }
-
-            // For Erik: Steps down
-            if ( Math.abs( horizontal ) < 50 && vertical > 100 ) {
-              console.log( 'swipe' );
-              man.y = man.y + squareLength;
-            }
-          }
-        }
-      } ) );
-
-      const bullets = [];
-
-      // This code runs all the time
-      this.step = dt => {
-        guns.forEach( gun => {
-
-          if ( Math.random() > 0.99 ) {
-            const bullet = new Circle( 10, { fill: 'yellow', center: gun.center.plusXY( 50, 0 ) } );
-            if ( man.lifePoints > 0 ) {
-              bullets.push( bullet );
-              this.addChild( bullet );
-            }
-          }
-        } );
-
-        bullets.forEach( bullet => {
-          bullet.x = bullet.x + 1;
-          if ( blade.visible && blade.bounds.intersectsBounds( bullet.bounds ) ) {
-            bullet.visible = false;
-          }
-          if ( bullet.visible && bullet.bounds.intersectsBounds( man.bounds ) ) {
-            bullet.visible = false;
-            if ( man.lifePoints > 0 ) {
-              man.lifePoints = man.lifePoints - 1;
-              if ( man.lifePoints <= 0 ) {
-                const redScreen = new Plane( {
-                  fill: 'red'
-                } );
-                this.addChild( redScreen );
-                const resetAllButton = new ResetAllButton( {
-                  radius: 50,
-                  center: this.layoutBounds.center,
-                  listener: () => {
-                    man.lifePoints = 5;
-                    this.removeChild( redScreen );
-                    bullets.forEach( bullet => bullet.setVisible( false ) );
-                    this.removeChild( resetAllButton );
-                  }
-                } );
-                this.addChild( resetAllButton );
-              }
-            }
-          }
-        } );
-      };
+      this.game = new Game( this );
+      this.addChild( this.game );
     }
+
+    restartGame() {
+      this.removeAllChildren();
+      this.game = new Game( this );
+      this.addChild( this.game );
+    }
+
 
     /**
      * Notify listeners of the step phase.
@@ -194,7 +52,7 @@ define( require => {
      * @public
      */
     step( dt ) {
-      this.step( dt );
+      this.game.step( dt );
     }
   }
 
